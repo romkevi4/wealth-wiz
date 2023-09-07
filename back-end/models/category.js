@@ -3,7 +3,7 @@ const isURL = require('validator/lib/isURL');
 
 const { MESSAGE } = require('../utils/responseInfo');
 
-// Схема данных для категории расхода или дохода
+// Схема данных для категории финансов
 const categorySchema = new mongoose.Schema({
   name: {
     type: String,
@@ -19,10 +19,6 @@ const categorySchema = new mongoose.Schema({
       },
       message: MESSAGE.URL_INCORRECT,
     },
-    required: true,
-  },
-  expenseCategoryId: {
-    type: Number,
     required: true,
   },
 });

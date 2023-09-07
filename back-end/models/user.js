@@ -5,7 +5,7 @@ const isEmail = require('validator/lib/isEmail');
 const UnauthorizedError = require('../errors/unauthorizedErr');
 const { MESSAGE } = require('../utils/responseInfo');
 
-// Схема для данных пользователя
+// Схема данных для пользователя
 const userSchema = new mongoose.Schema({
   name: {
     type: String,

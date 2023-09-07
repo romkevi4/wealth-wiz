@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 
 // Схема данных для финансов
 const financeSchema = new mongoose.Schema({
-	name: {
+	description: {
 		type: String,
-		minlength: 2,
-		maxlength: 30,
 		required: true,
 	},
 	category: {
@@ -15,6 +13,14 @@ const financeSchema = new mongoose.Schema({
 	},
 	money: {
 		type: Number,
+		required: true,
+	},
+	income: {
+		type: Boolean,
+		required: true,
+	},
+	date: {
+		type: Date,
 		required: true,
 	},
 });

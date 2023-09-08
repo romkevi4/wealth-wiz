@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const finance = require('./finance');
 
 // Схема данных для категории финансов
 const listSchema = new mongoose.Schema({
@@ -10,10 +9,15 @@ const listSchema = new mongoose.Schema({
     required: true,
   },
   finances: [
-    finance,
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'finance',
+      required: true,
+    }
   ],
   sum: {
     type: Number,
+    default: 0,
     required: true,
   },
   date: {

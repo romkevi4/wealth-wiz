@@ -7,7 +7,7 @@ const { MESSAGE } = require('../utils/responseInfo');
 
 // Схема данных для пользователя
 const userSchema = new mongoose.Schema({
-  name: {
+  userName: {
     type: String,
     minlength: 2,
     maxlength: 30,
@@ -29,6 +29,13 @@ const userSchema = new mongoose.Schema({
     select: false,
     required: true,
   },
+  groups: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'group',
+      required: true,
+    }
+  ],
 });
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {

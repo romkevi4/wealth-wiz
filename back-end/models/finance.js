@@ -14,12 +14,15 @@ const financeSchema = new mongoose.Schema({
 	money: {
 		type: Number,
 		required: true,
+		default: 0,
 	},
-	income: {
-		type: Boolean,
+	type: {
+		type: String,
+		enum: ['expense', 'income'],
 		required: true,
+		default: 'expense',
 	},
-	date: {
+	financeDate: {
 		type: Date,
 		required: true,
 	},

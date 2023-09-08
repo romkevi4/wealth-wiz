@@ -5,10 +5,10 @@ const { MESSAGE } = require('../utils/responseInfo');
 
 // Схема данных для категории финансов
 const categorySchema = new mongoose.Schema({
-  name: {
+  categoryName: {
     type: String,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 50,
     required: true,
   },
   icon: {

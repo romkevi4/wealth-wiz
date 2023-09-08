@@ -7,10 +7,10 @@ const { MESSAGE } = require('../utils/responseInfo');
 
 // Схема данных для пользователя
 const userSchema = new mongoose.Schema({
-  name: {
+  userName: {
     type: String,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 50,
     required: true,
   },
   email: {
@@ -28,6 +28,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     select: false,
     required: true,
+  },
+  groups: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'group',
+      required: true,
+    },
+  ],
+  totalAmount: {
+    type: Number,
+    required: true,
+    default: 0,
   },
 });
 

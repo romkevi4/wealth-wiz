@@ -1,22 +1,33 @@
 const mongoose = require('mongoose');
-const finance = require('./finance');
 
 // Схема данных для категории финансов
 const listSchema = new mongoose.Schema({
-  name: {
+  listName: {
     type: String,
     minlength: 2,
     maxlength: 30,
     required: true,
   },
-  finances: [
-    finance,
+  incomes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'finance',
+      required: true,
+    },
+  ],
+  expenses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'finance',
+      required: true,
+    },
   ],
   sum: {
     type: Number,
     required: true,
+    default: 0,
   },
-  date: {
+  listDate: {
     type: Date,
     required: true,
   },

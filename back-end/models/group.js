@@ -1,20 +1,24 @@
 const mongoose = require('mongoose');
-const list = require('./list');
 
 // Схема данных для группы
 const groupSchema = new mongoose.Schema({
-  name: {
+  groupName: {
     type: String,
     minlength: 2,
     maxlength: 30,
     required: true,
   },
   lists: [
-    list,
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'list',
+      required: true,
+    }
   ],
-  totalAmount: {
+  totalSum: {
     type: Number,
     required: true,
+    default: 0,
   },
 });
 

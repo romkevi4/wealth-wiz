@@ -29,14 +29,14 @@ module.exports.getUserData = (req, res, next) => {
 
 // Создание пользователя
 module.exports.createUser = (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { userName, email, password } = req.body;
 
   User.findOne({ email })
     .then((userSaved) => {
       if (!userSaved) {
         bcrypt.hash(password, SALT_HASH.ROUNDS)
           .then((hash) => User.create({
-            name,
+            userName,
             email,
             password: hash,
           }))
@@ -44,8 +44,10 @@ module.exports.createUser = (req, res, next) => {
             res
               .status(STATUS_CODE.CREATED)
               .send({
-                name: user.name,
+                userName: user.userName,
                 email: user.email,
+                groups: user.groups,
+                totalAmount: user.totalAmount,
                 _id: user._id,
               });
           })
@@ -57,7 +59,7 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => chooseError(err, next));
 };
 
-// Авторизация
+// Аутентификация
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -80,10 +82,35 @@ module.exports.login = (req, res, next) => {
 
 // Обновление профиля
 module.exports.updateUserData = (req, res, next) => {
-  const { name, email } = req.body;
+  const { userName, email } = req.body;
   const { _id } = req.user;
 
-  User.findByIdAndUpdate(_id, { name, email }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(
+    _id,
+    { userName, email },
+    { new: true, runValidators: true }
+  )
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError(MESSAGE.USER_NOT_FOUND);
+      }
+
+      res.send(user);
+    })
+    .catch((err) => chooseError(err, next));
+};
+
+// Обновление финансовых данных пользователя
+// TODO: пока метод не используется, нужно определить, где его использовать
+module.exports.updateFinanceData = (req, res, next) => {
+  const { groups, totalAmount } = req.body;
+  const { _id } = req.user;
+
+  User.findByIdAndUpdate(
+    _id,
+    { groups, totalAmount },
+    { new: true, runValidators: true }
+  )
     .then((user) => {
       if (!user) {
         throw new NotFoundError(MESSAGE.USER_NOT_FOUND);

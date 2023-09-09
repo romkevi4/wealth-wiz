@@ -17,6 +17,7 @@ module.exports.getUserData = (req, res, next) => {
   const { _id } = req.user;
 
   User.findById(_id)
+    .select('-password')
     .then((user) => {
       if (!user) {
         throw new NotFoundError(MESSAGE.USER_NOT_FOUND);
@@ -80,35 +81,32 @@ module.exports.login = (req, res, next) => {
     .catch(next);
 };
 
-// Обновление профиля
+// Обновление данных пользователя
 module.exports.updateUserData = (req, res, next) => {
-  const { userName, email } = req.body;
+  const { userName, email, groups, totalAmount } = req.body;
   const { _id } = req.user;
+
+  const updateFields = {};
+
+  if (userName) {
+    updateFields.userName = userName;
+  }
+
+  if (email) {
+    updateFields.email = email;
+  }
+
+  if (groups) {
+    updateFields.groups = groups;
+  }
+
+  if (totalAmount !== undefined) {
+    updateFields.totalAmount = totalAmount;
+  }
 
   User.findByIdAndUpdate(
     _id,
-    { userName, email },
-    { new: true, runValidators: true }
-  )
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError(MESSAGE.USER_NOT_FOUND);
-      }
-
-      res.send(user);
-    })
-    .catch((err) => chooseError(err, next));
-};
-
-// Обновление финансовых данных пользователя
-// TODO: пока метод не используется, нужно определить, где его использовать
-module.exports.updateFinanceData = (req, res, next) => {
-  const { groups, totalAmount } = req.body;
-  const { _id } = req.user;
-
-  User.findByIdAndUpdate(
-    _id,
-    { groups, totalAmount },
+    updateFields,
     { new: true, runValidators: true }
   )
     .then((user) => {

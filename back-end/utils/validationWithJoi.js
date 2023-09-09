@@ -4,7 +4,7 @@ const { urlRegex } = require('./urlRegex');
 // Валидация при создании пользователя
 const createUserValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi
+    userName: Joi
       .string()
       .min(2)
       .max(30)
@@ -35,7 +35,7 @@ const loginValidation = celebrate({
 // Валидация при обновлении данных пользователя
 const updateUserDataValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi
+    userName: Joi
       .string()
       .min(2)
       .max(50)

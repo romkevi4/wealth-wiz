@@ -12,13 +12,14 @@ const groupSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'list',
+      default: [],
       required: true,
     }
   ],
   totalSum: {
     type: Number,
-    required: true,
     default: 0,
+    required: true,
   },
 });
 

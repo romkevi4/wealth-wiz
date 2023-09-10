@@ -13,17 +13,18 @@ const financeSchema = new mongoose.Schema({
 	},
 	money: {
 		type: Number,
-		required: true,
 		default: 0,
+		required: true,
 	},
 	type: {
 		type: String,
 		enum: ['expense', 'income'],
-		required: true,
 		default: 'expense',
+		required: true,
 	},
 	financeDate: {
 		type: Date,
+		default: Date.now,
 		required: true,
 	},
 });

@@ -21,6 +21,11 @@ const categorySchema = new mongoose.Schema({
     },
     required: true,
   },
+  type: {
+    type: String,
+    enum: ['expense', 'income'],
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('category', categorySchema);

@@ -13,7 +13,6 @@ const listSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'finance',
       default: [],
-      required: true,
     },
   ],
   expenses: [
@@ -21,18 +20,15 @@ const listSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'finance',
       default: [],
-      required: true,
     },
   ],
   sum: {
     type: Number,
     default: 0,
-    required: true,
   },
   listDate: {
     type: Date,
     default: Date.now,
-    required: true,
   },
 });
 

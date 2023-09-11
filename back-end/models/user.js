@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const isURL = require('validator/lib/isURL');
 const isEmail = require('validator/lib/isEmail');
 
 const UnauthorizedError = require('../errors/unauthorizedErr');
 const { MESSAGE } = require('../utils/responseInfo');
-const { DEFAULT_DATA } = require('../utils/defaultData');
+const { PROFILE } = require('../utils/defaultData');
 
 // Схема данных для пользователя
 const userSchema = new mongoose.Schema({
@@ -13,19 +12,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: 2,
     maxlength: 50,
-    default: 'User',
     required: true,
   },
   avatar: {
-    type: String,
-    validate: {
-      validator(url) {
-        return isURL(url);
-      },
-      message: MESSAGE.URL_INCORRECT,
-    },
-    default: DEFAULT_DATA.AVATAR,
-    required: false,
+    data: Buffer,
+    contentType: String,
+    default: PROFILE.DEFAULT_AVATAR,
   },
   email: {
     type: String,
@@ -48,7 +40,6 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'group',
       default: [],
-      required: true,
     }
   ],
   categories: [
@@ -56,13 +47,11 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'category',
       default: [],
-      required: true,
     }
   ],
   totalAmount: {
     type: Number,
     default: 0,
-    required: true,
   },
 });
 

@@ -5,7 +5,7 @@ const groupSchema = new mongoose.Schema({
   groupName: {
     type: String,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 50,
     required: true,
   },
   lists: [
@@ -13,17 +13,15 @@ const groupSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'list',
       default: [],
-      required: true,
     }
   ],
   totalSum: {
     type: Number,
     default: 0,
-    required: true,
   },
-  date: {
+  groupDate: {
     type: Date,
-    required: true,
+    default: Date.now,
   },
 });
 

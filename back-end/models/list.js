@@ -5,16 +5,9 @@ const listSchema = new mongoose.Schema({
   listName: {
     type: String,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 50,
     required: true,
   },
-  finances: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'finance',
-      required: true,
-    }
-  ],
   incomes: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -51,6 +51,14 @@ const userSchema = new mongoose.Schema({
       required: true,
     }
   ],
+  categories: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'category',
+      default: [],
+      required: true,
+    }
+  ],
   totalAmount: {
     type: Number,
     default: 0,

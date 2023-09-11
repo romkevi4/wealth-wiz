@@ -41,16 +41,11 @@ module.exports.createUser = (req, res, next) => {
             email,
             password: hash,
           }))
+          .select('-password')
           .then((user) => {
             res
               .status(STATUS_CODE.CREATED)
-              .send({
-                userName: user.userName,
-                email: user.email,
-                groups: user.groups,
-                totalAmount: user.totalAmount,
-                _id: user._id,
-              });
+              .send(user);
           })
           .catch((err) => chooseError(err, next));
       } else {

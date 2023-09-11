@@ -1,17 +1,31 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const isURL = require('validator/lib/isURL');
 const isEmail = require('validator/lib/isEmail');
 
 const UnauthorizedError = require('../errors/unauthorizedErr');
 const { MESSAGE } = require('../utils/responseInfo');
+const { DEFAULT_DATA } = require('../utils/defaultData');
 
 // Схема данных для пользователя
 const userSchema = new mongoose.Schema({
   userName: {
     type: String,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 50,
+    default: 'User',
     required: true,
+  },
+  avatar: {
+    type: String,
+    validate: {
+      validator(url) {
+        return isURL(url);
+      },
+      message: MESSAGE.URL_INCORRECT,
+    },
+    default: DEFAULT_DATA.AVATAR,
+    required: false,
   },
   email: {
     type: String,
@@ -33,13 +47,20 @@ const userSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'group',
+      default: [],
       required: true,
     }
   ],
+  totalAmount: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
 });
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
-  return this.findOne({ email }).select('+password')
+  return this.findOne({ email })
+    .select('+password')
     .then((user) => {
       if (!user) {
         return Promise.reject(new UnauthorizedError(MESSAGE.DATA_UNAUTHORIZED));
@@ -53,7 +74,8 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
 
           return user;
         });
-    });
+    })
+    .catch((err) => console.error(err)); // TODO: добавлен временно, нужно выбрать, какую ошибку выбрасывать
 };
 
 module.exports = mongoose.model('user', userSchema);

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Схема данных для группы
 const groupSchema = new mongoose.Schema({
-  name: {
+  groupName: {
     type: String,
     minlength: 2,
     maxlength: 30,
@@ -12,10 +12,11 @@ const groupSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'list',
+      default: [],
       required: true,
     }
   ],
-  totalAmount: {
+  totalSum: {
     type: Number,
     default: 0,
     required: true,

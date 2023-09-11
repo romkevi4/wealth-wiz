@@ -16,12 +16,15 @@ const financeSchema = new mongoose.Schema({
 		default: 0,
 		required: true,
 	},
-	income: {
-		type: Boolean,
+	type: {
+		type: String,
+		enum: ['expense', 'income'],
+		default: 'expense',
 		required: true,
 	},
-	date: {
+	financeDate: {
 		type: Date,
+		default: Date.now,
 		required: true,
 	},
 });

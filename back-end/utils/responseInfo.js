@@ -27,6 +27,7 @@ module.exports.MESSAGE = {
   DATA_UNAUTHORIZED: 'Введенные почта или пароль неправильные',
   REQUEST_LIMIT: 'Превышено допустимое количество запросов в единицу времени',
   CORRECT: 'Всё верно',
+  VALIDATE_NON_EMPTY_ARRAY: 'Массив типов схемы category не должен быть пустым',
 };
 
 // Код ошибки дублирования email в MongoDB

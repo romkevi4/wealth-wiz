@@ -28,7 +28,7 @@ const categorySchema = new mongoose.Schema({
       validator(arr) {
         return arr.length > 0;
       },
-      message: 'Массив типов не должен быть пустым',
+      message: MESSAGE.VALIDATE_NON_EMPTY_ARRAY,
     },
     required: true,
   },

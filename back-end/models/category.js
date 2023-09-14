@@ -24,6 +24,12 @@ const categorySchema = new mongoose.Schema({
   type: {
     type: [String],
     enum: ['expense', 'income'],
+    validate: {
+      validator(arr) {
+        return arr.length > 0;
+      },
+      message: 'Массив типов не должен быть пустым',
+    },
     required: true,
   },
 });

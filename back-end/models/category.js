@@ -24,6 +24,12 @@ const categorySchema = new mongoose.Schema({
   type: {
     type: [String],
     enum: ['expense', 'income'],
+    validate: {
+      validator(arr) {
+        return arr.length > 0;
+      },
+      message: MESSAGE.VALIDATE_NON_EMPTY_ARRAY,
+    },
     required: true,
   },
 });

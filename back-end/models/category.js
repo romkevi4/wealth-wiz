@@ -9,6 +9,7 @@ const categorySchema = new mongoose.Schema({
     type: String,
     minlength: 2,
     maxlength: 150,
+    unique: true,
     required: true,
   },
   icon: {

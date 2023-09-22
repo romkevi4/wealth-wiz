@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   userName: {
     type: String,
     minlength: 2,
-    maxlength: 50,
+    maxlength: 150,
     required: true,
   },
   avatar: {
@@ -21,6 +21,8 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    minlength: 2,
+    maxlength: 250,
     unique: true,
     validate: {
       validator(email) {

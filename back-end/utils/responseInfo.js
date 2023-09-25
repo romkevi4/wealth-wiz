@@ -20,6 +20,7 @@ module.exports.MESSAGE = {
   ERROR_DUPLICATE_EMAIL_USER: 'Пользователь с таким email уже зарегистрирован',
   ERROR_INCORRECT_ID: 'Введённый id не корректен',
   ERROR_INCORRECT_DATA: 'Введённые данные не корректны',
+  CATEGORIES_NOT_FOUND: 'Запрашиваемые категории не найдены',
   PATH_NOT_FOUND: 'Запрашиваемый путь не найден',
   EMAIL_INCORRECT: 'Введенный email не корректен',
   URL_INCORRECT: 'Введенный url не корректен',

@@ -78,7 +78,14 @@ module.exports.login = (req, res, next) => {
 
 // Обновление данных пользователя
 module.exports.updateUserData = (req, res, next) => {
-  const { userName, email, groups, totalAmount } = req.body;
+  const {
+    userName,
+    avatar,
+    email,
+    groups,
+    categories,
+    totalAmount
+  } = req.body;
   const { _id } = req.user;
 
   const updateFields = {};
@@ -87,12 +94,20 @@ module.exports.updateUserData = (req, res, next) => {
     updateFields.userName = userName;
   }
 
+  if (avatar) {
+    updateFields.avatar = avatar;
+  }
+
   if (email) {
     updateFields.email = email;
   }
 
   if (groups) {
     updateFields.groups = groups;
+  }
+
+  if (categories) {
+    updateFields.categories = categories;
   }
 
   if (totalAmount !== undefined) {
